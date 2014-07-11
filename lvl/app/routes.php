@@ -4,12 +4,9 @@
 |--------------------------------------------------------------------------
 | Application Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
 */
+
+/* Facebook Routes */
 
 Route::get('login/fb', function() {
     $facebook = new Facebook(Config::get('facebook'));
@@ -57,17 +54,11 @@ Route::get('login/fb/callback', function() {
     return Redirect::to('/')->with('message', 'Logged in with Facebook');
 });
 
-Route::get('/', function()
-{
-    $data = array();
-
-    if (Auth::check()) {
-        $data = Auth::user();
-    }
-    return View::make('user', array('data'=>$data));
-});
-
 Route::get('logout', function() {
     Auth::logout();
     return Redirect::to('/');
 });
+
+/* Homepage Route */
+
+Route::get('/', 'HomeController@showWelcome');
